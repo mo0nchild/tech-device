@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TechDevice.Wattmeter.Services.Calculator.Models
 {
-    public class WattModel : object
+    public class WattModel : EventArgs
     {
         public double Amperage { get; set; } = default!;
         public double Voltage { get; set; } = default!;

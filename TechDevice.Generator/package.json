@@ -26,6 +26,7 @@
     "@types/ws": "^8.5.10",
     "electron-typescript-ipc": "^3.0.0",
     "jqwidgets-scripts": "^19.0.0",
+    "primereact": "^10.5.3",
     "ws": "^8.16.0"
   },
   "devDependencies": {

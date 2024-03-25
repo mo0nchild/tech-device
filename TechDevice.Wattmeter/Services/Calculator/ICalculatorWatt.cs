@@ -9,6 +9,6 @@ namespace TechDevice.Wattmeter.Services.Calculator
 {
     public interface ICalculatorWatt
     {
-        public Task<double> CalculateWatt(WattModel data);
+        public Task<double> CalculateWatt(WattModel model);
     }
 }

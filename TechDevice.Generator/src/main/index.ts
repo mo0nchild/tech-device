@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { app, shell, BrowserWindow } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
@@ -11,7 +12,7 @@ import { Api, ApiData } from './../preload/index'
 function createWindow(): void {
 	const mainWindow = new BrowserWindow({
 		width: 720,
-		height: 420,
+		height: 480,
 		resizable: false,
 		show: false,
 		title: 'Генератор',
@@ -37,9 +38,8 @@ function createWindow(): void {
 }
 
 app.whenReady().then(() => {
-	electronApp.setAppUserModelId('com.electron')
-	const socketServer = new socket.Server({ port: 8000 });
-	const controller = new SocketService.ServerController<ApiData>(socketServer);
+	electronApp.setAppUserModelId('com.electron');
+	const controller = new SocketService.ServerController<ApiData>();
 
 	app.on('browser-window-created', (_, window) => {
 		optimizer.watchWindowShortcuts(window)
@@ -47,6 +47,12 @@ app.whenReady().then(() => {
 	const ipcMain = createIpcMain<Api>();
 	ipcMain.handle('getData', async (_event, key) => {
 		return await controller.sendMessage(key);
+	});
+	ipcMain.handle('serverUp', async () => {
+		controller.initialize(new socket.Server({ port: 8000 }));
+	});
+	ipcMain.handle('serverDown', async () => {
+		return await controller.close();
 	});
 	createWindow()
 	app.on('activate', function () {

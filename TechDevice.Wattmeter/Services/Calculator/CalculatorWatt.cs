@@ -11,7 +11,7 @@ namespace TechDevice.Wattmeter.Services.Calculator
     public class CalculatorWatt : ICalculatorWatt
     {
         public CalculatorWatt(): base() { }
-        public Task<double> CalculateWatt(WattModel data) => 
-            Task.FromResult(data.Voltage * data.Amperage);
+        public Task<double> CalculateWatt(WattModel model) 
+            => Task.FromResult(model.Voltage * model.Amperage);
     }
 }

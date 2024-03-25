@@ -5,19 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TechDevice.Wattmeter.Views"
         xmlns:watt="clr-namespace:TechDevice.Wattmeter.Components.WattmeterGauge"
-        mc:Ignorable="d" Title="Ваттметер" Height="520" Width="520" ResizeMode="CanMinimize">
+        mc:Ignorable="d" Title="Ваттметер" Height="520" Width="520" 
+        ResizeMode="CanMinimize" x:Name="this" WindowStartupLocation="CenterScreen">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" BorderBrush="Black" BorderThickness="2" 
-                CornerRadius="15" Padding="5"
+                CornerRadius="15" Padding="5" Background="White"
                 HorizontalAlignment="Center">
-            <watt:WattmeterGauge x:Name="wattmeterGauge" WattValue="10" 
-                                 MaxValue="150" Angle="150" Radius="220"/>
+            <watt:WattmeterGauge x:Name="wattmeterGauge" MaxValue="150" Angle="150" Radius="220"
+                                 WattValue="{Binding ElementName=this, Path=WattValue}"/>
         </Border>
-        <Button Grid.Row="1" Height="30" Width="200" Content="Подключиться" 
+        <Button x:Name="connectionButton" Grid.Row="1" Height="30" Width="200" 
+                Content="Подключиться" 
                 Background="White" Click="Button_Click"/>
     </Grid>
 </Window>

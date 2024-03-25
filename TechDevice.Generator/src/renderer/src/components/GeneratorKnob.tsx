@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React from 'react';
 import * as JqxKnob from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxknob';
 
@@ -6,7 +7,10 @@ type KnobValue = number | (number | undefined)[] | undefined;
 export type GeneratorProp = {
     onValueChange(value: number): void;
     labelFormater(value: string): string;
-    componentName: string;
+    readonly componentName: string;
+    readonly maximum: number;
+    readonly minimum: number;
+    readonly step: number;
 };
 class GeneratorKnob extends React.Component<GeneratorProp, {value: number}> {
     
@@ -17,14 +21,14 @@ class GeneratorKnob extends React.Component<GeneratorProp, {value: number}> {
         this.knobProp = {
             marks: {
                 colorProgress: '#444', colorRemaining: '#FFF',
-                majorInterval: 10, majorSize: '1%', minorInterval: 5,
+                majorInterval: this.props.step / 4, majorSize: '1%', minorInterval: 5,
                 offset: '75%', size: '1%', thickness: 2
             },
             labels: {
                 formatFunction: (label: string | number): string | number => {
                     return label;
                 },
-                offset: '90%', step: 50, visible: true,
+                offset: '90%', step: this.props.step, visible: true,
                 style: { fill: '#fff' }
             },
             progressBar: {
@@ -67,7 +71,7 @@ class GeneratorKnob extends React.Component<GeneratorProp, {value: number}> {
         return true;
     };
     public override render(): React.ReactElement {
-        const { labelFormater, componentName } = this.props;
+        const { labelFormater, componentName, minimum, maximum } = this.props;
         return (
             <div style={{
                 color: '#444', display: 'flex',
@@ -75,12 +79,10 @@ class GeneratorKnob extends React.Component<GeneratorProp, {value: number}> {
                 alignItems: 'center',
                 fontSize: 16, fontWeight: 'bold'
             }}>
-                <p style={{
-                    fontSize: 20,
-                    fontWeight: 'bold'
-                }}>{componentName}</p>
+                <p style={{ fontSize: 20, fontWeight: 'bold'}}>{componentName}</p>
                 <JqxKnob.default height={220} width={220}
-                    min={0} max={500} startAngle={120} endAngle={480} step={1}
+                    min={minimum} max={maximum} 
+                    startAngle={120} endAngle={480} step={0.1}
                     dragStartAngle={120} dragEndAngle={420}
                     snapToStep={true} rotation={'clockwise'}
                     marks={this.knobProp.marks} 

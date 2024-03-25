@@ -19,7 +19,7 @@ namespace TechDevice.Wattmeter
         {
             return Host.CreateDefaultBuilder().ConfigureServices(services => 
             {
-                services.AddCalculators().AddSingleton<MainWindow>();
+                services.AddServices().AddSingleton<MainWindow>();
             });
         }
         protected override void OnStartup(StartupEventArgs args)

@@ -97,7 +97,8 @@ namespace TechDevice.Wattmeter.Components.WattmeterGauge
             this.myCanvas.Children.Add(this.ComponentBackground);
             this.myCanvas.Children.Add(this.RenderComponent(context =>
             {
-                var convertToAngle = this.WattValue * (this.Angle / this.MaxValue);
+                var valueCorrection = this.WattValue > this.MaxValue ? this.MaxValue : this.WattValue;
+                var convertToAngle = valueCorrection * (this.Angle / this.MaxValue);
                 var arrowSize = this.Radius - 80.0;
                 var currentPoint = new Point(
                     x: -(Math.Cos(Math.PI / 180.0 * (convertToAngle - this.Angle / 2 + 90)) * arrowSize) + this.Center.X,
