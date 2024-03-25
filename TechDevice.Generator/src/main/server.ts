@@ -23,7 +23,7 @@ namespace SocketService {
         };
         public async initialize(server: webSocket.Server): Promise<void> {
             (this.socketServer = server).on('connection', (ws: webSocket.WebSocket) => {
-                ws.on('message', this.onMessage);
+                ws.on('message', (data) => this.onMessage(data.toString(), ws));
                 ws.on('close', this.onClose);
                 if(this.lastMessage != null) {
                     ws.send(JSON.stringify(this.lastMessage));
@@ -38,8 +38,9 @@ namespace SocketService {
                 client.send(JSON.stringify(message));
             });
         }
-        public onMessage(message: string): void {
+        public onMessage(message: string, ws: webSocket.WebSocket): void {
             console.log(`Client: ${message}`);
+            if(this.lastMessage != null) ws.send(JSON.stringify(this.lastMessage));
         }
         public onClose() : void {
             console.log('Connection was closed')

@@ -16,13 +16,12 @@ namespace TechDevice.Wattmeter.Services.Socket
         protected CancellationTokenSource tokenSourse = new();
         public bool IsConnected { get; private set; } = default!;
         public string SocketUri { get; private set; } = default!;
+
+        private WebsocketClient? socketClient = default!;
         public SocketClient() : base()
         {
+            this.Disconnected += (@object, args) => this.IsConnected = false;
             this.Connected += (@object, args) => this.IsConnected = true;
-            this.Disconnected += (@object, args) =>
-            {
-                this.IsConnected = false;
-            };
         }
         public event EventHandler<TData> DataReceived = delegate { };
 
@@ -45,22 +44,29 @@ namespace TechDevice.Wattmeter.Services.Socket
             Task.Run(new Action(async() =>
             {
                 this.SocketUri = socketUri.AbsoluteUri;
-                using (var client = new WebsocketClient(socketUri) { IsReconnectionEnabled = false })
+                using (this.socketClient = new WebsocketClient(socketUri) { IsReconnectionEnabled = false })
                 {
-                    client.DisconnectionHappened.Subscribe(this.DisconnectionHandler);
-                    client.MessageReceived.Subscribe(this.MessageHandler);
+                    this.socketClient.DisconnectionHappened.Subscribe(this.DisconnectionHandler);
+                    this.socketClient.MessageReceived.Subscribe(this.MessageHandler);
 
-                    await client.Start();
-                    if(client.IsRunning) this.Connected.Invoke(this, EventArgs.Empty);
+                    await this.socketClient.Start();
+                    if(this.socketClient.IsRunning) this.Connected.Invoke(this, EventArgs.Empty);
 
-                    while (!cancellationToken.IsCancellationRequested && client.IsRunning)
+                    while (!cancellationToken.IsCancellationRequested && this.socketClient.IsRunning)
                         continue;
                     this.Disconnected.Invoke(this, EventArgs.Empty);
                 }
+                this.socketClient = null;
                 this.tokenSourse.Dispose();
             }));
             return Task.CompletedTask;
         }
         public virtual Task DisconnectAsync() => this.tokenSourse.CancelAsync();
+
+        public virtual async Task SendMessage<TMessage>(TMessage message)
+        {
+            if (this.socketClient == null || !this.IsConnected) return;
+            await Task.Run(() => this.socketClient.Send(JsonConvert.SerializeObject(message)));
+        }
     }
 }
