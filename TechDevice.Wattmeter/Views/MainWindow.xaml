@@ -4,78 +4,110 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TechDevice.Wattmeter.Views"
-        xmlns:watt="clr-namespace:TechDevice.Wattmeter.Components.WattmeterGauge"
-        mc:Ignorable="d" Title="Ваттметер" Height="520" Width="520" 
+        xmlns:watt="clr-namespace:TechDevice.Wattmeter.Components.WattmeterGauge2"
+        mc:Ignorable="d" Title="Ваттметер" Height="526" Width="482" 
         Background="#1b1b1f"
         ResizeMode="CanMinimize" x:Name="this" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary Source="Styles.xaml" />
+    </Window.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="6*"/>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" BorderBrush="Black" BorderThickness="2" 
-                CornerRadius="15" Padding="5" Background="White"
-                HorizontalAlignment="Center">
-            <watt:WattmeterGauge x:Name="wattmeterGauge" Angle="150" Radius="220"
-                                 MaxValue="{Binding ElementName=this, Path=MaxWattValue}" />
-        </Border>
-        <StackPanel Orientation="Vertical" Grid.Row="1" Margin="20">
+        <Border Grid.Row="0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="connectionButton" Height="30" Width="200" 
-                        Grid.Column="0" Content="Подключиться" FontSize="14"
-                        Background="White" Click="ConnectionButton_Click"/>
-                <Button x:Name="powerButton" Height="30" Width="200" FontSize="14" 
-                        Grid.Column="1" Content="Включить" IsEnabled="False"
-                        Background="White" Click="PowerButton_Click"/>       
+                <Border Grid.Column="0">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                        <Button Style="{StaticResource CircleButtonStyle}" Margin="10, 0"
+                                Click="ConnectionButton_Click" 
+                                Background="{Binding ElementName=this, Path=Connection}"/>
+                        <Button Style="{StaticResource CircleButtonStyle}" Margin="10, 0"
+                                Click="ConnectionButton_Click" 
+                                Background="{Binding ElementName=this, Path=Connection}"/>
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="1">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                        <Button Style="{StaticResource CircleButtonStyle}" Margin="10, 0"
+                                Click="ConnectionButton_Click" 
+                                Background="{Binding ElementName=this, Path=Connection}"/>
+                        <RadioButton IsChecked="True" Margin="10, 0" Content="0.5 A" GroupName="AmperageGroup"
+                                     Checked="RadioButtonAmperage_Checked"
+                                     Style="{StaticResource CircleRadioButtonStyle}" />
+                        <RadioButton Margin="10, 0" Content="1 A" GroupName="AmperageGroup"
+                                     Checked="RadioButtonAmperage_Checked"
+                                     Style="{StaticResource CircleRadioButtonStyle}"/>
+                    </StackPanel>
+                </Border>
             </Grid>
-            <Grid Margin="0, 10, 0, 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center">
-                    <TextBlock Foreground="White" FontSize="16" Margin="0, 0, 0, 10">
-                        Предельное напряжение:
-                    </TextBlock>
-                    <RadioButton GroupName="Voltage" Content="30 Вольт" Foreground="White"
-                                 Checked="RadioButtonVoltage_Checked" 
-                                 FontSize="14" IsChecked="True" Margin="0, 1"/>
-                    <RadioButton GroupName="Voltage" Content="75 Вольт" Foreground="White"
-                                 Checked="RadioButtonVoltage_Checked" 
-                                 FontSize="14" Margin="0, 1"/>
-                    <RadioButton GroupName="Voltage" Content="150 Вольт" Foreground="White"
-                                 Checked="RadioButtonVoltage_Checked" 
-                                 FontSize="14" Margin="0, 1"/>
-                    <RadioButton GroupName="Voltage" Content="300 Вольт" Foreground="White"
-                                 Checked="RadioButtonVoltage_Checked" 
-                                 FontSize="14" Margin="0, 1"/>
-                    <RadioButton GroupName="Voltage" Content="450 Вольт" Foreground="White"
-                                 Checked="RadioButtonVoltage_Checked" 
-                                 FontSize="14" Margin="0, 1"/>
-                    <RadioButton GroupName="Voltage" Content="600 Вольт" Foreground="White"
-                                 Checked="RadioButtonVoltage_Checked" 
-                                 FontSize="14" Margin="0, 1"/>
-                </StackPanel>
-                <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center">
-                    <TextBlock Foreground="White" FontSize="16" Margin="0, 0, 0, 10">
-                        Предельная сила тока:
-                    </TextBlock>
-                    <RadioButton GroupName="Amperage" Content="0.5 Ампер" Foreground="White"
-                                 Checked="RadioButtonAmperage_Checked" 
-                                 FontSize="14" IsChecked="True" Margin="0, 1"/>
-                    <RadioButton GroupName="Amperage" Content="1 Ампер" Foreground="White"
-                                 Checked="RadioButtonAmperage_Checked" 
-                                 FontSize="14" Margin="0, 1"/>
-                    <TextBlock x:Name="stateTextBlock" FontSize="14" 
-                               Foreground="GreenYellow" Margin="0, 20">
-                        С устройством все хорошо
-                    </TextBlock>
-                </StackPanel>
-            </Grid>
-        </StackPanel>
+        </Border>
+        <Border Grid.Row="1" Background="Gray" Margin="0, 10">
+            <StackPanel Margin="10" Orientation="Horizontal" HorizontalAlignment="Center">
+                <CheckBox Content="+/-" Margin="5, 0" IsChecked="False"
+                          Checked="Power_Checked"
+                          Unchecked="Power_Checked"
+                          x:Name="power" Style="{StaticResource SquareCheckButtonStyle}"/>
+                <RadioButton Content="30" IsChecked="True"  Margin="5, 0" GroupName="OptionsGroup" 
+                             Checked="RadioButtonVoltage_Checked"
+                             Style="{StaticResource SquareRadioButtonStyle}"/>
+                <RadioButton Content="75" Margin="5, 0" GroupName="OptionsGroup" 
+                             Checked="RadioButtonVoltage_Checked"
+                             Style="{StaticResource SquareRadioButtonStyle}" />
+                <RadioButton Content="150" Margin="5, 0" GroupName="OptionsGroup" 
+                             Checked="RadioButtonVoltage_Checked"
+                             Style="{StaticResource SquareRadioButtonStyle}"/>
+                <RadioButton Content="300" Margin="5, 0" GroupName="OptionsGroup" 
+                             Checked="RadioButtonVoltage_Checked"
+                             Style="{StaticResource SquareRadioButtonStyle}"/>
+                <RadioButton Content="450" Margin="5, 0" GroupName="OptionsGroup" 
+                             Checked="RadioButtonVoltage_Checked"
+                             Style="{StaticResource SquareRadioButtonStyle}"/>
+                <RadioButton Content="600" Margin="5, 0" GroupName="OptionsGroup" 
+                             Checked="RadioButtonVoltage_Checked"
+                             Style="{StaticResource SquareRadioButtonStyle}"/>
+                <Grid Margin="50, 0, 0, 0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Vertical" Margin="10, 0">
+                        <Border Background="#000" BorderThickness="1" CornerRadius="4"
+                                Margin="0, 5" Height="6" Width="50" HorizontalAlignment="Center"/>
+                        <Border Background="#000" BorderThickness="1" CornerRadius="4"
+                                Margin="0, 5" Height="6" Width="50" HorizontalAlignment="Center"/>
+                        <Border Background="#000" BorderThickness="1" CornerRadius="4"
+                                Margin="0, 5" Height="6" Width="50" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical" Margin="10, 0">
+                        <Border Background="#000" BorderThickness="1" CornerRadius="4"
+                                Margin="0, 5" Height="6" Width="50" HorizontalAlignment="Center"/>
+                        <Border Background="#000" BorderThickness="1" CornerRadius="4"
+                                Margin="0, 5" Height="6" Width="50" HorizontalAlignment="Center"/>
+                        <Border Background="#000" BorderThickness="1" CornerRadius="4"
+                                Margin="0, 5" Height="6" Width="50" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                        <TextBlock x:Name="stateTextBlock" FontSize="12" Width="150" 
+                                   Foreground="GreenYellow" Margin="0" TextAlignment="Center">
+                            С устройством все хорошо
+                        </TextBlock>
+                    </Border>
+                </Grid>
+            </StackPanel>
+        </Border>
+        <Border Grid.Row="2" Background="#1b1b1f" HorizontalAlignment="Center">
+            <watt:WattmeterGauge2 Background="#1b1b1f" x:Name="wattmeterGauge" />
+        </Border>
     </Grid>
 </Window>

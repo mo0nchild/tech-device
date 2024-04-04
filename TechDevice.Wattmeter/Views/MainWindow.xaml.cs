@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Security.Policy;
 using System.Text;
 using System.Windows;
@@ -18,19 +20,33 @@ using Websocket.Client;
 
 namespace TechDevice.Wattmeter.Views
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         protected readonly ISocketClient<WattModel> socketClient = default!;
         protected readonly ICalculatorWatt calculatorWatt = default!;
         public bool IsGereratorOn { get; private set; } = default!;
         public bool IsPowering { get; private set; } = default!;
         public double MaxWattValue { get; set; } = 150;
+        
+        private Brush _connection = Brushes.Transparent;
+        public Brush Connection
+        {
+            set { this._connection = value; this.OnPropertyChanged(); }
+            get { return this._connection; }
+        }
+        private double _voltageLimit = 30, _amperageLimit = 0.5, _currentWatt = 0;
+        private bool _isLoaded = default!;
 
-        private double _voltageLimit = 0, _amperageLimit = 0, _currentWatt = 0; 
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
         public MainWindow(ICalculatorWatt calculator, ISocketClient<WattModel> socketClient): base()
         {
             this.InitializeComponent();
             (this.calculatorWatt, this.socketClient) = (calculator, socketClient);
+            this.Loaded += (sender, args) => this._isLoaded = true;
 
             this.socketClient.DataReceived += this.SocketDataReceived;
             this.socketClient.Connected += this.SocketConnected;
@@ -38,26 +54,28 @@ namespace TechDevice.Wattmeter.Views
         }
         private void SocketConnected(object? sender, EventArgs args) => this.Dispatcher.Invoke(() =>
         {
-            this.connectionButton.Background = Brushes.GreenYellow;
-            this.powerButton.IsEnabled = this.IsGereratorOn = true;
+            this.Connection = Brushes.Black;
+            this.IsGereratorOn = true;
+            if (this.IsPowering) this.socketClient.SendMessage<string>("alive");
         });
         private void SocketDisconnected(object? sender, EventArgs args) => this.Dispatcher.Invoke(() =>
         {
-            this.connectionButton.Background = Brushes.White;
-            this.SetDevicePower(this.powerButton.IsEnabled = this.IsGereratorOn = false);
-            MessageBox.Show(!this.IsGereratorOn 
+            MessageBox.Show(this.IsGereratorOn
                 ? "Генератор был отключен" : "Не удалось подключить генератор");
+            this.Connection = Brushes.Transparent;
+            this.IsGereratorOn = false;
+            this.wattmeterGauge.Value = default!;
         });
         private async void SocketDataReceived(object? sender, WattModel args)
         {
             if (!this.IsPowering) return;
-            this.SetLabelState(this._amperageLimit >= args.Amperage && this._voltageLimit >= args.Voltage);
+            this.SetLabelState(this._amperageLimit * this._voltageLimit >= args.Voltage * args.Amperage);
             this.SetWattmeterValue(this._currentWatt = await this.calculatorWatt.CalculateWatt(args));
         }
         protected virtual void SetWattmeterValue(double watt) => this.Dispatcher.Invoke(() =>
         {
             var converter = this.MaxWattValue / this._voltageLimit / this._amperageLimit;
-            this.wattmeterGauge.WattValue = watt * converter;
+            this.wattmeterGauge.Value = watt * converter;
         });
         private void SetLabelState(bool isNormal) => this.Dispatcher.Invoke(() =>
         {
@@ -87,13 +105,9 @@ namespace TechDevice.Wattmeter.Views
         }
         private void SetDevicePower(bool powering)
         {
-            this.powerButton.Background = !powering ? Brushes.White : Brushes.GreenYellow;
-            this.powerButton.Content = !powering ? "Включить" : "Отключить";
-
-            this.IsPowering = powering;
-            if (!powering) this.wattmeterGauge.WattValue = 0;
+            if (!(this.IsPowering = powering)) this.wattmeterGauge.Value = 0;
         }
-        private void PowerButton_Click(object sender, RoutedEventArgs args)
+        private void Power_Checked(object sender, RoutedEventArgs args)
         {
             this.SetDevicePower(!this.IsPowering);
             if (this.IsPowering) this.socketClient.SendMessage<string>("alive");
@@ -101,6 +115,7 @@ namespace TechDevice.Wattmeter.Views
         }
         private void RadioButtonVoltage_Checked(object sender, RoutedEventArgs args)
         {
+            if (!this._isLoaded) return;
             if (sender is RadioButton radioButton)
             {
                 var content = radioButton.Content.ToString()!.Replace('.', ',');
@@ -111,6 +126,7 @@ namespace TechDevice.Wattmeter.Views
         }
         private void RadioButtonAmperage_Checked(object sender, RoutedEventArgs args)
         {
+            if (!this._isLoaded) return;
             if (sender is RadioButton radioButton)
             {
                 var content = radioButton.Content.ToString()!.Replace('.', ',');
