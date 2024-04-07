@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TechDevice.Wattmeter.Views"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Icon="Resources/Icon.ico"
         Title="Подключение" Height="260" Width="360" ResizeMode="NoResize">
     <Border BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="20">
         <Grid Margin="20">

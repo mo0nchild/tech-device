@@ -3,11 +3,11 @@
   "WorkspaceRootPath": "C:\\Users\\letsp\\Documents\\Projects\\C#Lang\\Develop\\tech-device\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BE522268-07FB-4608-8917-1F31C69C7E03}|TechDevice.Wattmeter\\TechDevice.Wattmeter.csproj|c:\\users\\letsp\\documents\\projects\\c#lang\\develop\\tech-device\\techdevice.wattmeter\\views\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BE522268-07FB-4608-8917-1F31C69C7E03}|TechDevice.Wattmeter\\TechDevice.Wattmeter.csproj|solutionrelative:techdevice.wattmeter\\views\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BE522268-07FB-4608-8917-1F31C69C7E03}|TechDevice.Wattmeter\\TechDevice.Wattmeter.csproj|c:\\users\\letsp\\documents\\projects\\c#lang\\develop\\tech-device\\techdevice.wattmeter\\views\\connectionwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{BE522268-07FB-4608-8917-1F31C69C7E03}|TechDevice.Wattmeter\\TechDevice.Wattmeter.csproj|solutionrelative:techdevice.wattmeter\\views\\connectionwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BE522268-07FB-4608-8917-1F31C69C7E03}|TechDevice.Wattmeter\\TechDevice.Wattmeter.csproj|C:\\Users\\letsp\\Documents\\Projects\\C#Lang\\Develop\\tech-device\\techdevice.wattmeter\\views\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{BE522268-07FB-4608-8917-1F31C69C7E03}|TechDevice.Wattmeter\\TechDevice.Wattmeter.csproj|c:\\users\\letsp\\documents\\projects\\c#lang\\develop\\tech-device\\techdevice.wattmeter\\views\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{BE522268-07FB-4608-8917-1F31C69C7E03}|TechDevice.Wattmeter\\TechDevice.Wattmeter.csproj|solutionrelative:techdevice.wattmeter\\views\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
@@ -18,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,6 +30,18 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ConnectionWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\letsp\\Documents\\Projects\\C#Lang\\Develop\\tech-device\\TechDevice.Wattmeter\\Views\\ConnectionWindow.xaml",
+              "RelativeDocumentMoniker": "TechDevice.Wattmeter\\Views\\ConnectionWindow.xaml",
+              "ToolTip": "C:\\Users\\letsp\\Documents\\Projects\\C#Lang\\Develop\\tech-device\\TechDevice.Wattmeter\\Views\\ConnectionWindow.xaml",
+              "RelativeToolTip": "TechDevice.Wattmeter\\Views\\ConnectionWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-04-07T21:41:36.879Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\letsp\\Documents\\Projects\\C#Lang\\Develop\\tech-device\\TechDevice.Wattmeter\\Views\\MainWindow.xaml",
@@ -37,20 +49,7 @@
               "ToolTip": "C:\\Users\\letsp\\Documents\\Projects\\C#Lang\\Develop\\tech-device\\TechDevice.Wattmeter\\Views\\MainWindow.xaml",
               "RelativeToolTip": "TechDevice.Wattmeter\\Views\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-04-03T17:30:22.378Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\letsp\\Documents\\Projects\\C#Lang\\Develop\\tech-device\\TechDevice.Wattmeter\\Views\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "TechDevice.Wattmeter\\Views\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\letsp\\Documents\\Projects\\C#Lang\\Develop\\tech-device\\TechDevice.Wattmeter\\Views\\MainWindow.xaml.cs",
-              "RelativeToolTip": "TechDevice.Wattmeter\\Views\\MainWindow.xaml.cs",
-              "ViewState": "AQIAADUAAAAAAAAAAAAowE8AAAAfAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-03T17:30:10.494Z",
+              "WhenOpened": "2024-04-07T21:41:29.247Z",
               "EditorCaption": ""
             }
           ]

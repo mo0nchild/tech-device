@@ -35,7 +35,6 @@ C:\Users\letsp\Documents\Projects\C#Lang\Develop\tech-device\TechDevice.Wattmete
 C:\Users\letsp\Documents\Projects\C#Lang\Develop\tech-device\TechDevice.Wattmeter\bin\Debug\net8.0-windows\System.Reactive.dll
 C:\Users\letsp\Documents\Projects\C#Lang\Develop\tech-device\TechDevice.Wattmeter\bin\Debug\net8.0-windows\Websocket.Client.dll
 C:\Users\letsp\Documents\Projects\C#Lang\Develop\tech-device\TechDevice.Wattmeter\obj\Debug\net8.0-windows\TechDevice.Wattmeter.csproj.AssemblyReference.cache
-C:\Users\letsp\Documents\Projects\C#Lang\Develop\tech-device\TechDevice.Wattmeter\obj\Debug\net8.0-windows\Views\Styles.baml
 C:\Users\letsp\Documents\Projects\C#Lang\Develop\tech-device\TechDevice.Wattmeter\obj\Debug\net8.0-windows\Components\WattmeterGauge2\WattmeterGauge2.g.cs
 C:\Users\letsp\Documents\Projects\C#Lang\Develop\tech-device\TechDevice.Wattmeter\obj\Debug\net8.0-windows\Components\WattmeterGauge\WattmeterGauge.g.cs
 C:\Users\letsp\Documents\Projects\C#Lang\Develop\tech-device\TechDevice.Wattmeter\obj\Debug\net8.0-windows\Views\ConnectionWindow.g.cs
@@ -60,3 +59,4 @@ C:\Users\letsp\Documents\Projects\C#Lang\Develop\tech-device\TechDevice.Wattmete
 C:\Users\letsp\Documents\Projects\C#Lang\Develop\tech-device\TechDevice.Wattmeter\obj\Debug\net8.0-windows\TechDevice.Wattmeter.pdb
 C:\Users\letsp\Documents\Projects\C#Lang\Develop\tech-device\TechDevice.Wattmeter\obj\Debug\net8.0-windows\TechDevice.Wattmeter.genruntimeconfig.cache
 C:\Users\letsp\Documents\Projects\C#Lang\Develop\tech-device\TechDevice.Wattmeter\obj\Debug\net8.0-windows\ref\TechDevice.Wattmeter.dll
+C:\Users\letsp\Documents\Projects\C#Lang\Develop\tech-device\TechDevice.Wattmeter\obj\Debug\net8.0-windows\Views\Resources\Styles.baml

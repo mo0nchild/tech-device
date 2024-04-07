@@ -10,7 +10,7 @@
     <Page Update="Components\WattmeterGauge2\WattmeterGauge2.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Styles.xaml">
+    <Page Update="Views\Resources\Styles.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

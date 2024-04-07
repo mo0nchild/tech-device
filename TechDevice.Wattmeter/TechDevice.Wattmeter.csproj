@@ -10,6 +10,8 @@
 
   <ItemGroup>
     <None Remove="arrow.png" />
+    <None Remove="Components\WattmeterGauge2\Images\wattmeter2.jpg" />
+    <None Remove="Views\Resources\Icon.ico" />
     <None Remove="wattmeter.jpg" />
   </ItemGroup>
 
@@ -22,6 +24,7 @@
   <ItemGroup>
     <Resource Include="Components\WattmeterGauge2\Images\arrow.png" />
     <Resource Include="Components\WattmeterGauge2\Images\wattmeter.jpg" />
+    <Resource Include="Views\Resources\Icon.ico" />
   </ItemGroup>
 
 </Project>
