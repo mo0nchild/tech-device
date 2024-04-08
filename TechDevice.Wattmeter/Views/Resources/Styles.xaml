@@ -46,7 +46,7 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter TargetName="CheckMark" Property="Background" Value="#000"/>
+                            <Setter TargetName="CheckMark" Property="Background" Value="YellowGreen"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
